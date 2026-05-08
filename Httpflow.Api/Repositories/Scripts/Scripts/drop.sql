@@ -1,0 +1,6 @@
+DROP TABLE IF EXISTS `ProjectTeammates`;
+DROP TABLE IF EXISTS `Requests`;
+DROP TABLE IF EXISTS `Variables`;
+DROP TABLE IF EXISTS `Collections`;
+DROP TABLE IF EXISTS `Projects`;
+DROP TABLE IF EXISTS `Users`;

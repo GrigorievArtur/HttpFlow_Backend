@@ -1,0 +1,24 @@
+.DS_Store
+
+# Secrets and local environment files
+.env
+.env.*
+!.env.example
+
+# .NET build output
+bin/
+obj/
+Debug/
+Release/
+
+# IDE files
+.vs/
+.vscode/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.rsuser
+
+# Logs and local artifacts
+*.log
