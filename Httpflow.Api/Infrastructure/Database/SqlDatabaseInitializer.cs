@@ -1,16 +1,14 @@
-using System;
-using System.IO;
 using MySqlConnector;
 
-namespace ApiTestTool.Database.Common;
+namespace Httpflow.Api.Infrastructure.Database;
 
-public class SQLDatabaseInitializer
+public sealed class SqlDatabaseInitializer
 {
     private readonly string _connectionString;
     private readonly bool _shouldDropAndCreate;
     private readonly string _scriptsDirectoryPath;
 
-    public SQLDatabaseInitializer(string? contentRootPath = null)
+    public SqlDatabaseInitializer(string? contentRootPath = null)
     {
         _shouldDropAndCreate = bool.TryParse(GetRequiredEnv("DB_DROP_CREATE"), out var dropAndCreate) && dropAndCreate;
 
@@ -18,17 +16,19 @@ public class SQLDatabaseInitializer
             ?? BuildConnectionStringFromParts();
 
         var basePath = contentRootPath ?? AppContext.BaseDirectory;
-        _scriptsDirectoryPath = Path.Combine(basePath, "Repositories", "Scripts", "Scripts");
+        _scriptsDirectoryPath = Path.Combine(basePath, "Infrastructure", "Database", "Scripts");
     }
 
     public void RebuildSchema()
     {
-        if (!_shouldDropAndCreate)  return;
-        
+        if (!_shouldDropAndCreate)
+        {
+            return;
+        }
 
         var scriptFileNames = new[] { "drop.sql", "create.sql" };
-
         var scripts = new string[scriptFileNames.Length];
+
         for (var i = 0; i < scriptFileNames.Length; i++)
         {
             var scriptPath = Path.Combine(_scriptsDirectoryPath, scriptFileNames[i]);
