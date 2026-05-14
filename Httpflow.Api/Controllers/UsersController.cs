@@ -12,6 +12,7 @@ namespace Httpflow.Api.Controllers;
 [Route("api/v1/users")]
 public sealed class UsersController : ControllerBase
 {
+    
     [HttpGet]
     [ProducesResponseType<IReadOnlyList<UserDto>>(StatusCodes.Status200OK)]
     public ActionResult<IReadOnlyList<UserDto>> GetAll([FromServices] UserService userService)
