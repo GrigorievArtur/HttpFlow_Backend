@@ -4,6 +4,7 @@ using DotNetEnv;
 using Httpflow.Api.Infrastructure;
 using Httpflow.Api.Infrastructure.Database;
 using Httpflow.Api.Services.Auth;
+using Httpflow.Api.Services.Collaborators;
 using Httpflow.Api.Services.Projects;
 using Httpflow.Api.Services.Users;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -64,6 +65,7 @@ builder.Services.AddScoped<JwtTokenService>();
 builder.Services.AddScoped<UserService>();
 builder.Services.AddScoped<AuthService>();
 builder.Services.AddScoped<ProjectsService>();
+builder.Services.AddScoped<CollaboratorsService>();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>

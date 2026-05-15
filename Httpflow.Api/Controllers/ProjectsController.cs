@@ -38,6 +38,45 @@ public sealed class ProjectsController : ControllerBase
         var projects = projectsService.GetPagedProjects(GetCurrentUserId(), pageNumber, pageSize);
         return projects;
     }
+
+    [HttpGet("{projectId:int}")]
+    [ProducesResponseType<ProjectDto>(StatusCodes.Status200OK)]
+    [ProducesResponseType<ProblemDetails>(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType<ProblemDetails>(StatusCodes.Status403Forbidden)]
+    [ProducesResponseType<ProblemDetails>(StatusCodes.Status404NotFound)]
+    public ActionResult<ProjectDto> GetById(
+        int projectId,
+        [FromServices] ProjectsService projectsService)
+    {
+        return Ok(projectsService.GetProjectById(projectId, GetCurrentUserId()));
+    }
+
+    [HttpPut("{projectId:int}")]
+    [ProducesResponseType<ProjectDto>(StatusCodes.Status200OK)]
+    [ProducesResponseType<ValidationProblemDetails>(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType<ProblemDetails>(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType<ProblemDetails>(StatusCodes.Status403Forbidden)]
+    [ProducesResponseType<ProblemDetails>(StatusCodes.Status404NotFound)]
+    [ProducesResponseType<ProblemDetails>(StatusCodes.Status409Conflict)]
+    public ActionResult<ProjectDto> Update(
+        int projectId,
+        [FromBody] UpdateProjectDto dto,
+        [FromServices] ProjectsService projectsService)
+    {
+        return Ok(projectsService.UpdateProject(projectId, GetCurrentUserId(), dto));
+    }
+
+    [HttpDelete("{projectId:int}")]
+    [ProducesResponseType<ProjectDto>(StatusCodes.Status200OK)]
+    [ProducesResponseType<ProblemDetails>(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType<ProblemDetails>(StatusCodes.Status403Forbidden)]
+    [ProducesResponseType<ProblemDetails>(StatusCodes.Status404NotFound)]
+    public ActionResult<ProjectDto> Delete(
+        int projectId,
+        [FromServices] ProjectsService projectsService)
+    {
+        return Ok(projectsService.DeleteProject(projectId, GetCurrentUserId()));
+    }
     
 
     private int GetCurrentUserId()

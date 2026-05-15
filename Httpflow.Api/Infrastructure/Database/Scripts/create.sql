@@ -51,6 +51,7 @@ CREATE TABLE IF NOT EXISTS `Commands` (
 CREATE TABLE IF NOT EXISTS `ProjectTeammates` (
     `ProjectId` INT NOT NULL,
     `UserId` INT NOT NULL,
+    `Role` VARCHAR(32) NOT NULL DEFAULT 'Member',
     PRIMARY KEY (`ProjectId`, `UserId`),
     CONSTRAINT `FK_ProjectTeammates_Projects`
         FOREIGN KEY (`ProjectId`) REFERENCES `Projects` (`Id`) ON DELETE CASCADE,
